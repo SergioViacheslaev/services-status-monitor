@@ -30,6 +30,11 @@ allprojects {
             incremental = false
         }
     }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+        jvmArgs = listOf("--enable-preview")
+    }
 }
 
 subprojects {
