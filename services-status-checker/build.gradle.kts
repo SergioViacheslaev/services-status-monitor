@@ -10,6 +10,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-devtools")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
