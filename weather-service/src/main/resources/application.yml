@@ -1,2 +1,7 @@
 server:
   port: 8081
+
+weather-service:
+  serviceName: "Weather-service"
+  serviceStatusURL: "http://localhost:8081/weather-service/status"
+  servicesMonitorRegistrationURL: "http://localhost:8080/services-monitor/services-reg"
