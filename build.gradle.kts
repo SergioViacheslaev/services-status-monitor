@@ -12,6 +12,7 @@ plugins {
 
     kotlin("jvm") version "1.5.30-RC" apply false
     kotlin("plugin.spring") version "1.5.30-RC" apply false
+    kotlin("kapt") version "1.4.32" apply false
 }
 
 allprojects {
