@@ -1,6 +1,7 @@
 package com.servicesmonitor.servicesstatuschecker.controller
 
-import com.servicesmonitor.servicesstatuschecker.model.MonitoredService
+import com.servicesmonitor.servicesstatuschecker.model.ServiceRegistrationData
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/services-monitor")
 class ServiceRegistrationController {
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     @PostMapping("/services-reg")
-    fun handleRegistranionServiceRequest(@RequestBody monitoredService: MonitoredService): ResponseEntity<String> {
-        return ResponseEntity("Service registered", HttpStatus.OK)
+    fun handleRegistranionServiceRequest(@RequestBody serviceRegistrationData: ServiceRegistrationData): ResponseEntity<String> {
+        logger.info("Received reg-request from ${serviceRegistrationData.serviceName}")
+
+        return ResponseEntity(HttpStatus.OK)
     }
 }
