@@ -15,7 +15,7 @@ class ServiceStatusUpdateService(
 
     override fun updateServiceStatus() {
         monitoredServiceRepo.findAll().forEach {
-            val lastServiceStatus = it.serviceStatusData?.serviceStatus
+            val lastServiceStatus = it.serviceStatusData.serviceStatus
             //Requesting service actual status
             val actualServiceStatusData = monitoringService.requestServiceStatus(it.serviceStatusURL)
 
