@@ -9,10 +9,19 @@ import org.springframework.stereotype.Service
 class ServiceStatusService : ServiceStatusData {
 
     override fun getServiceStatusDto() = ServiceStatusDto(
-        ServiceStatus.UP,
+        getCurrentStatus(),
         Runtime.getRuntime().totalMemory().toString(),
         Runtime.getRuntime().freeMemory().toString(),
         emptyList()
     )
+
+    private fun getCurrentStatus(): ServiceStatus {
+        val rnds = (-1..1).random()
+        return if (rnds > 0) {
+            ServiceStatus.UP
+        } else {
+            ServiceStatus.DOWN
+        }
+    }
 
 }
