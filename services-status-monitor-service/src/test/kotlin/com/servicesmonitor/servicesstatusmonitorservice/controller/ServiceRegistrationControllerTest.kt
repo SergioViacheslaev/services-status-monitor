@@ -1,4 +1,4 @@
-package com.servicesmonitor.servicesstatusmonitorservice
+package com.servicesmonitor.servicesstatusmonitorservice.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.servicesmonitor.servicesstatusmonitorservice.model.ServiceRegistrationData
