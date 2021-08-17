@@ -1,15 +1,15 @@
 package com.servicesmonitor.servicesstatuschecker
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.servicesmonitor.servicesstatuschecker.model.MonitoredService
 import com.servicesmonitor.servicesstatuschecker.model.ServiceRegistrationData
-import com.servicesmonitor.servicesstatuschecker.model.ServiceStatusData
-import org.junit.jupiter.api.BeforeEach
+import com.servicesmonitor.servicesstatuschecker.service.ServiceMonitoring
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.doNothing
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
@@ -18,38 +18,34 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ServiceRegistrationTest {
+class ServiceRegistrationControllerTest {
     companion object {
-        const val SERVICE_NAME = "weather-service"
+        const val SERVICE_NAME = "Test-service"
         const val SERVICE_STATUS_URL = "http://localhost:8082/weather-service/status"
         const val SERVICE_REGISTRATION_URL = "http://localhost:8080/services-monitor/services-reg"
     }
 
     @Autowired
     private lateinit var mockMvc: MockMvc
-    private lateinit var monitoredService: MonitoredService
+
+    @MockBean
+    private lateinit var servicesMonitoringService: ServiceMonitoring
     private val objectMapper = jacksonObjectMapper()
 
-    @BeforeEach
-    fun setup() {
-        monitoredService = MonitoredService(
-            ServiceRegistrationData(SERVICE_NAME, SERVICE_STATUS_URL), ServiceStatusData()
-        )
-    }
 
     @Test
     @DisplayName("Service registers successfully")
     fun serviceRegistrationSuccessTest() {
+        val serviceRegistrationData = ServiceRegistrationData(SERVICE_NAME, SERVICE_STATUS_URL)
+        doNothing().`when`(servicesMonitoringService).registerMonitoredService(serviceRegistrationData)
+
         mockMvc.post(SERVICE_REGISTRATION_URL) {
-            content = objectMapper.writeValueAsString(monitoredService)
+            content = objectMapper.writeValueAsString(serviceRegistrationData)
             contentType = MediaType.APPLICATION_JSON
-            accept = MediaType.APPLICATION_JSON
         }.andDo {
             print()
         }.andExpect {
             status().isOk
-            content { contentType(MediaType.APPLICATION_JSON) }
-            content { string("Service registered") }
         }
     }
 
