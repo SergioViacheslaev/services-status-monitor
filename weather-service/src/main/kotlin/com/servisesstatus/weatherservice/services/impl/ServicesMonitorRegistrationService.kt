@@ -1,7 +1,8 @@
-package com.servisesstatus.weatherservice.services
+package com.servisesstatus.weatherservice.services.impl
 
 import com.servisesstatus.weatherservice.confg.ServiceProperties
 import com.servisesstatus.weatherservice.dto.RegistrationRequestDto
+import com.servisesstatus.weatherservice.services.ServiceMonitorRegistration
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
@@ -15,11 +16,11 @@ import org.springframework.web.client.RestTemplate
 class ServicesMonitorRegistrationService(
     val restTemplate: RestTemplate,
     val properties: ServiceProperties
-) {
+) : ServiceMonitorRegistration {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @EventListener(ApplicationReadyEvent::class)
-    fun register() {
+    override fun register() {
         val registrationDto = RegistrationRequestDto(properties.serviceName, properties.serviceStatusURL)
 
         //Building and sending registration request
