@@ -16,6 +16,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation ("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

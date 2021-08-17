@@ -1,9 +1,13 @@
 package com.servicesmonitor.servicesstatuschecker.model
 
+import org.springframework.data.mongodb.core.mapping.Document
+
 /**
- * Monitored service data: registration and status info
+ * Monitored service data
  */
+@Document("monitored-services")
 data class MonitoredService(
-    val registrationData: ServiceRegistrationData,
+    val serviceName: String,
+    val serviceStatusURL: String,
     val serviceStatusData: ServiceStatusData
 )
