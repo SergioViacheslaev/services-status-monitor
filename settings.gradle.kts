@@ -1,3 +1,3 @@
 rootProject.name = "services-status-monitor"
-include("services-status-checker")
+include("services-status-monitor-service")
 include("weather-service")
