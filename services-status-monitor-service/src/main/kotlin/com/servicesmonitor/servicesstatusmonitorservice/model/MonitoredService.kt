@@ -1,6 +1,7 @@
 package com.servicesmonitor.servicesstatusmonitorservice.model
 
 import com.servicesmonitor.servicesstatusmonitorservice.dto.MonitoredServiceDto
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 /**
@@ -8,9 +9,11 @@ import org.springframework.data.mongodb.core.mapping.Document
  */
 @Document("monitored-services")
 data class MonitoredService(
-    val serviceName: String,
-    val serviceStatusURL: String,
-    val serviceStatusData: ServiceStatusData
+    @Id
+    val id: String,
+    val serviceName: String = "",
+    val serviceStatusURL: String = "",
+    var serviceStatusData: ServiceStatusData
 ) {
     fun toDto() = MonitoredServiceDto(
         serviceName = serviceName,

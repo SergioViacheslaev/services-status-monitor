@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling
 
 @SpringBootApplication
 @EnableScheduling
-class ServicesStatusCheckerApplication
+class ServicesStatusMonitorServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<ServicesStatusCheckerApplication>(*args)
+    runApplication<ServicesStatusMonitorServiceApplication>(*args)
 }

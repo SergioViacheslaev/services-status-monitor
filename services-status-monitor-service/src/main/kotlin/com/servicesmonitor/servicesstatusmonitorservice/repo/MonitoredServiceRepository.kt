@@ -5,4 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MonitoredServiceRepository : MongoRepository<MonitoredService, String>
+interface MonitoredServiceRepository : MongoRepository<MonitoredService, String> {
+    fun findByServiceName(serviceName: String): MonitoredService
+}

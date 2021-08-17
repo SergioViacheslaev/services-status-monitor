@@ -6,6 +6,7 @@ import com.servicesmonitor.servicesstatusmonitorservice.model.ServiceStatus
 import com.servicesmonitor.servicesstatusmonitorservice.model.ServiceStatusData
 import com.servicesmonitor.servicesstatusmonitorservice.repo.MonitoredServiceRepository
 import com.servicesmonitor.servicesstatusmonitorservice.service.ServiceMonitoring
+import org.bson.types.ObjectId
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
@@ -19,6 +20,7 @@ class ServicesMonitoringService(
 
     override fun registerMonitoredService(serviceRegistrationData: ServiceRegistrationData) {
         val monitoredService = MonitoredService(
+            ObjectId.get().toString(),
             serviceRegistrationData.serviceName,
             serviceRegistrationData.serviceStatusURL,
             ServiceStatusData(ServiceStatus.REGISTERED)
