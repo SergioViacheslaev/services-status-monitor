@@ -8,10 +8,12 @@ import com.servicesmonitor.servicesstatuschecker.repo.MonitoredServiceRepository
 import com.servicesmonitor.servicesstatuschecker.service.ServiceMonitoring
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 
 @Service
 class ServicesMonitoringService(
-    val monitoredServiceRepo: MonitoredServiceRepository
+    val monitoredServiceRepo: MonitoredServiceRepository,
+    val restTemplate: RestTemplate
 ) : ServiceMonitoring {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -23,6 +25,10 @@ class ServicesMonitoringService(
         )
         monitoredServiceRepo.save(monitoredService)
         logger.info("Service ${monitoredService.serviceName} is registered.")
+    }
+
+    override fun requestServiceStatus(serviceStatusURL: String): ServiceStatusData? {
+        return restTemplate.getForObject(serviceStatusURL, ServiceStatusData::class.java)
     }
 
     override fun findAllMonitoredServices(): List<MonitoredService> {
