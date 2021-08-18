@@ -18,6 +18,13 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
+    implementation ("org.springframework.boot:spring-boot-starter-websocket")
+    implementation ("org.webjars:webjars-locator-core")
+    implementation ("org.webjars:sockjs-client:1.0.2")
+    implementation ("org.webjars:stomp-websocket:2.3.3")
+    implementation ("org.webjars:bootstrap:3.3.7")
+    implementation ("org.webjars:jquery:3.1.1-1")
+
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     kapt("org.springframework.boot:spring-boot-configuration-processor")

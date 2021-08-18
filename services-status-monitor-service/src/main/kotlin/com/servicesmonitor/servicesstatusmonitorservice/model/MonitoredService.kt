@@ -17,16 +17,24 @@ data class MonitoredService(
 ) {
     fun toDto() = MonitoredServiceDto(
         serviceName = serviceName,
-        usedMemoryPercentage = serviceStatusData.jvmTotalMemory.toString(),
+        usedMemoryPercentage = getUsedMemoryPercentage(),
         shortStatus = serviceStatusData.serviceStatus.name,
-        fullStatus = if (serviceStatusData.exceptionMessages.isNotEmpty()) {
-            serviceStatusData.exceptionMessages
-                .reduce { statusMessage, exceptionMessage -> statusMessage + exceptionMessage }
-                .toString()
-        } else {
-            "Service works fine"
-        }
+        fullStatus = getFullStatus()
     )
+
+    private fun getUsedMemoryPercentage(): String {
+        val jvmTotalMemory = serviceStatusData.jvmTotalMemory
+        val jvmFreeMemory = serviceStatusData.jvmFreeMemory
+        return String.format("%.2f", (100 * (jvmTotalMemory - jvmFreeMemory)).toDouble() / jvmTotalMemory)
+    }
+
+    private fun getFullStatus() = when (serviceStatusData.exceptionMessages.isNotEmpty()) {
+        true -> serviceStatusData.exceptionMessages
+            .reduce { statusMessage, exceptionMessage -> statusMessage + exceptionMessage }
+            .toString()
+        else -> ""
+    }
+
 }
 
 

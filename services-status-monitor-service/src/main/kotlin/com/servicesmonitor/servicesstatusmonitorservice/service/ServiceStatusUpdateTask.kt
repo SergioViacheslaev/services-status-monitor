@@ -1,6 +1,5 @@
-package com.servicesmonitor.servicesstatusmonitorservice.service.impl
+package com.servicesmonitor.servicesstatusmonitorservice.service
 
-import com.servicesmonitor.servicesstatusmonitorservice.service.StatusUpdate
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service

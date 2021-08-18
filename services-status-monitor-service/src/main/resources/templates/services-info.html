@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
               integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
               crossorigin="anonymous">
-<!--        <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>-->
-<!--        <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+        <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
         <script th:src="@{/javascript/services-info.js}"></script>
     </head>
     <body>
@@ -33,11 +33,9 @@
 
                 <tbody>
                     <tr th:each="service : ${monitoredServices}">
-                        <td>
-                            <img width="100%" height="100%" src="../images/greenStatus.png"/>
-                        </td>
-                        <td th:text="${service.serviceName}"></td>
-                        <td th:text="${service.shortStatus}"></td>
+                        <td></td>
+                        <td th:text="${service.serviceName}" id="serviceName"></td>
+                        <td th:text="${service.shortStatus}" id="shortStatus" ></td>
                         <td th:text="${service.usedMemoryPercentage}"></td>
                         <td th:text="${service.fullStatus}"></td>
                     </tr>
