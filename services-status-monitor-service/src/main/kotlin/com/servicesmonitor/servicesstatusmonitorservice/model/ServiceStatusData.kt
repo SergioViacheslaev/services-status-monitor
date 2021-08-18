@@ -1,10 +1,8 @@
 package com.servicesmonitor.servicesstatusmonitorservice.model
 
-import java.io.Serializable
-
 /**
- * Additional info about service status.
- * Receive as JSON from services via GET: /{service-name}/status
+ * Service status data,
+ * receive as JSON from services via GET: /{service-name}/status
  */
 data class ServiceStatusData(
     val serviceStatus: ServiceStatus = ServiceStatus.OFFLINE,

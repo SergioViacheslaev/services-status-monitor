@@ -15,6 +15,9 @@ class ServiceStatusService : ServiceStatusData {
         emptyList()
     )
 
+    /**
+     *  Dummy method to generate random service status
+     */
     private fun getCurrentStatus(): ServiceStatus {
         val rnds = (-1..1).random()
         return if (rnds > 0) {

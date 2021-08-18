@@ -1,6 +1,8 @@
 package com.servicesmonitor.servicesstatusmonitorservice.dto
 
-
+/**
+ * Service status info DTO
+ */
 data class MonitoredServiceDto(
     val serviceName: String,
     val usedMemoryPercentage: String,

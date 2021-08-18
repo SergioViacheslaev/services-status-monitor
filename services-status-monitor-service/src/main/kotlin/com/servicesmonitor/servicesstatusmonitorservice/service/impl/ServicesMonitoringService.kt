@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Performs service registration, saves to DB
+ */
 @Service
 class ServicesMonitoringService(
     val monitoredServiceRepo: MonitoredServiceRepository,

@@ -12,6 +12,9 @@ import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ *  Sends registration request to Service Status Monitor
+ */
 @Service
 class ServicesMonitorRegistrationService(
     val restTemplate: RestTemplate,
