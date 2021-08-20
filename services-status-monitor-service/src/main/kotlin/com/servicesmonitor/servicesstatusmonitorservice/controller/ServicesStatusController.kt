@@ -2,9 +2,9 @@ package com.servicesmonitor.servicesstatusmonitorservice.controller
 
 import com.servicesmonitor.servicesstatusmonitorservice.service.ServiceMonitoring
 import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.servlet.ModelAndView
 
 /**
  * Returns status info page
@@ -16,10 +16,8 @@ class ServicesStatusController(
 ) {
 
     @GetMapping("/services-info")
-    fun showServicesInfo(model: Model): String {
+    fun showServicesInfo(): ModelAndView {
         val monitoredServicesDto = servicesMonitoringService.findAllMonitoredServices().map { it.toDto() }.toList()
-        model.addAttribute("monitoredServices", monitoredServicesDto)
-
-        return "services-info"
+        return ModelAndView("services-info", "monitoredServices", monitoredServicesDto)
     }
 }
