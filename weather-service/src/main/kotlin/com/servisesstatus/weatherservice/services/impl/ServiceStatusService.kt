@@ -37,8 +37,7 @@ class ServiceStatusService : ServiceStatusData {
     private fun getServiceExceptions(): List<String> {
         val exceptions = mutableListOf<String>()
         if (serviceStatus == ServiceStatus.DOWN) {
-            val rnds = (0..3).random()
-            when (rnds) {
+            when ((0..3).random()) {
                 1 -> exceptions.add("Error connecting to DB")
                 2 -> exceptions.add("Weather API not responding")
                 3 -> exceptions.add("Security connection refused")
