@@ -28,8 +28,15 @@ class ServicesMonitoringService(
             serviceRegistrationData.serviceStatusURL,
             ServiceStatusData(ServiceStatus.REGISTERED)
         )
-        monitoredServiceRepo.save(monitoredService)
-        logger.info("Service ${monitoredService.serviceName} is registered.")
+        //Check if service already registered
+        val existingService =  monitoredServiceRepo.findByServiceName(monitoredService.serviceName)
+        if(monitoredService.serviceName == existingService.serviceName) {
+            logger.info("Service ${monitoredService.serviceName} is already registered.")
+        } else {
+            monitoredServiceRepo.save(monitoredService)
+            logger.info("Service ${monitoredService.serviceName} is registered.")
+        }
+
     }
 
     override fun requestServiceStatus(serviceStatusURL: String): ServiceStatusData? {

@@ -13,7 +13,7 @@ class ServiceStatusUpdateTask(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @Scheduled(fixedRate = 10_000)
+    @Scheduled(fixedRate = 5_000)
     fun updateServiceStatusTask() {
         logger.info("Status update task is performed")
         statusUpdateService.updateServicesStatus()
