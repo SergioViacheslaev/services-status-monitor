@@ -1,4 +1,6 @@
 let stompClient = null;
+const greenStatusImg = '<img width="100%" height="100%" src="../images/greenStatus.png"/>'
+const redStatusImg = '<img width="100%" height="100%" src="../images/redStatus.png"/>'
 
 function setConnected(connected) {
     if (connected) {
@@ -28,9 +30,9 @@ const updateServicesInfoTable = (monitoredService) => {
     let serviceStatusDataRow = '';
     serviceStatusDataRow += '<tr>';
     if (monitoredService.shortStatus === "UP") {
-        serviceStatusDataRow += '<td>' + '<img width="100%" height="100%" src="../images/greenStatus.png"/>' + '</td>';
+        serviceStatusDataRow += '<td>' + greenStatusImg + '</td>';
     } else if (monitoredService.shortStatus === "DOWN" || monitoredService.shortStatus === "OFFLINE" ) {
-        serviceStatusDataRow += '<td>' + '<img width="100%" height="100%" src="../images/redStatus.png"/>' + '</td>';
+        serviceStatusDataRow += '<td>' + redStatusImg + '</td>';
     } else {
         serviceStatusDataRow += '<td></td>';
     }
