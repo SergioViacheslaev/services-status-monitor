@@ -2,11 +2,20 @@ package com.servisesstatus.processingservice.services.impl
 
 import com.servisesstatus.processingservice.dto.ServiceStatusDto
 import com.servisesstatus.processingservice.model.ServiceStatus
+import com.servisesstatus.processingservice.services.ServiceHealth
 import com.servisesstatus.processingservice.services.ServiceStatusData
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
 
 @Service
-class ServiceStatusService : ServiceStatusData {
+class ServiceStatusService(
+    val healthCheckService: ServiceHealth
+) : ServiceStatusData {
+    private val logger = LoggerFactory.getLogger(javaClass)
     private var serviceStatus: ServiceStatus = ServiceStatus.OFFLINE
 
     override fun getServiceStatusDto() = ServiceStatusDto(
@@ -17,17 +26,27 @@ class ServiceStatusService : ServiceStatusData {
     )
 
     /**
-     *  Dummy method to generate random service status
+     *  Dummy method to define service status,
+     *  after all async checks completed.
      */
-    private fun getCurrentStatus(): ServiceStatus {
-        val rnds = (-1..1).random()
-        return if (rnds >= 0) {
-            serviceStatus = ServiceStatus.UP
-            ServiceStatus.UP
-        } else {
-            serviceStatus = ServiceStatus.DOWN
-            ServiceStatus.DOWN
+    @OptIn(ExperimentalTime::class)
+    private fun getCurrentStatus(): ServiceStatus = runBlocking {
+        var currentServiceStatus = ServiceStatus.UP
+        val checkStatusTime = measureTime {
+            val dbConnectionExceptions = async { healthCheckService.checkDataBaseConnections() }
+            val amazonCloudApiExceptions = async { healthCheckService.checkAmazonCloudAPI() }
+            val messaggingQueueExceptions = async { healthCheckService.checkMessagingQueue() }
+
+            if (dbConnectionExceptions.await().isNotEmpty()
+                || amazonCloudApiExceptions.await().isNotEmpty()
+                || messaggingQueueExceptions.await().isNotEmpty()
+            ) {
+                currentServiceStatus = ServiceStatus.DOWN
+            }
         }
+        logger.info("Health check is completed in ${checkStatusTime.inWholeMilliseconds} ms")
+
+        return@runBlocking currentServiceStatus
     }
 
 
