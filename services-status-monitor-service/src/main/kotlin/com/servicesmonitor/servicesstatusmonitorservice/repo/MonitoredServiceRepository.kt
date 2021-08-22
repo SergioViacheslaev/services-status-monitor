@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface MonitoredServiceRepository : MongoRepository<MonitoredService, String> {
-    fun findByServiceName(serviceName: String): MonitoredService
+    fun findByServiceName(serviceName: String): MonitoredService?
 }
