@@ -1,7 +1,7 @@
 server:
   port: 8082
 
-weather-service:
+processing-service:
   serviceName: "Processing-service"
   serviceStatusURL: "http://localhost:8082/processing-service/status"
   servicesMonitorRegistrationURL: "http://localhost:8080/services-monitor/services-reg"

@@ -1,8 +1,8 @@
-package com.servisesstatus.weatherservice.services.impl
+package com.servisesstatus.processingservice.services.impl
 
-import com.servisesstatus.weatherservice.confg.ServiceProperties
-import com.servisesstatus.weatherservice.dto.RegistrationRequestDto
-import com.servisesstatus.weatherservice.services.ServiceMonitorRegistration
+import com.servisesstatus.processingservice.confg.ServiceProperties
+import com.servisesstatus.processingservice.dto.RegistrationRequestDto
+import com.servisesstatus.processingservice.services.ServiceMonitorRegistration
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
@@ -21,11 +21,10 @@ class ServicesMonitorRegistrationService(
     val properties: ServiceProperties
 ) : ServiceMonitorRegistration {
     private val logger = LoggerFactory.getLogger(javaClass)
-    private val serviceName = properties.serviceName
 
     @EventListener(ApplicationReadyEvent::class)
     override fun register() {
-        val registrationDto = RegistrationRequestDto(serviceName, properties.serviceStatusURL)
+        val registrationDto = RegistrationRequestDto(properties.serviceName, properties.serviceStatusURL)
 
         //Building and sending registration request
         val headers = HttpHeaders()
@@ -39,9 +38,9 @@ class ServicesMonitorRegistrationService(
             )
             logger.info("Sending registration request to ${properties.servicesMonitorRegistrationURL}")
             if (response.statusCode == HttpStatus.OK) {
-                logger.info("$serviceName registered successfully")
+                logger.info("${properties.serviceName} registered successfully")
             } else {
-                logger.warn("$serviceName registration failed, error code: ${response.statusCodeValue} ")
+                logger.warn("${properties.serviceName} registration failed, error code: ${response.statusCodeValue} ")
             }
         } catch (e: ResourceAccessException) {
             logger.warn("Couldn't connect to Services Status Monitor !")
