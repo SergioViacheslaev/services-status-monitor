@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/services-monitor")
+@RequestMapping("/services-monitor/user")
 class LoginController {
 
     @GetMapping("/login")
-    fun showMyLoginPage(): String {
+    fun showLoginPage(): String {
         return "login-page"
     }
 }

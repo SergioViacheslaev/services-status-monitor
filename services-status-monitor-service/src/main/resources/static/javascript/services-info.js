@@ -1,6 +1,6 @@
 let stompClient = null;
-const greenStatusImg = '<img width="100%" height="100%" src="../images/greenStatus.png"/>'
-const redStatusImg = '<img width="100%" height="100%" src="../images/redStatus.png"/>'
+const greenStatusImg = '<img width="100%" height="100%" src="../../img/greenStatus.png"/>'
+const redStatusImg = '<img width="100%" height="100%" src="../../img/redStatus.png"/>'
 
 function setConnected(connected) {
     if (connected) {

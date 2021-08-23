@@ -15,7 +15,7 @@ class ServicesStatusController(
     val servicesMonitoringService: ServiceMonitoring
 ) {
 
-    @GetMapping("/services-status")
+    @GetMapping("/services/status")
     fun showServicesStatus(): ModelAndView {
         val monitoredServicesDto = servicesMonitoringService.findAllMonitoredServices().map { it.toDto() }.toList()
         return ModelAndView("services-status-page", "monitoredServices", monitoredServicesDto)
