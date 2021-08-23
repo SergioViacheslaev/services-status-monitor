@@ -33,6 +33,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(web: WebSecurity) {
         web.ignoring()
             .antMatchers(HttpMethod.POST, "/services-monitor/services/register")
+            .antMatchers("/services-monitor/user/registration")
     }
 
 
