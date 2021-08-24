@@ -1,20 +1,35 @@
 package com.servicesmonitor.servicesstatusmonitorservice.config
 
+import com.servicesmonitor.servicesstatusmonitorservice.service.MyUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig(
+    val userDetailsService: MyUserDetailsService
+) : WebSecurityConfigurerAdapter() {
+
+    @Bean
+    fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
+
+    @Bean
+    fun authProvider(): DaoAuthenticationProvider? {
+        val authProvider = DaoAuthenticationProvider()
+        authProvider.setUserDetailsService(userDetailsService)
+        authProvider.setPasswordEncoder(encoder())
+        return authProvider
+    }
 
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
@@ -22,6 +37,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .and()
             .formLogin()
             .loginPage("/services-monitor/login")
+            .usernameParameter("email")
             .loginProcessingUrl("/authenticate")
             .permitAll()
             .and()
@@ -36,15 +52,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .antMatchers("/services-monitor/user/registration")
     }
 
-
-    @Bean
-    override fun userDetailsService(): UserDetailsService {
-        val user = User.withDefaultPasswordEncoder()
-            .username("admin")
-            .password("admin")
-            .roles("USER")
-            .build()
-        return InMemoryUserDetailsManager(user)
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth.authenticationProvider(authProvider())
     }
 }
 
