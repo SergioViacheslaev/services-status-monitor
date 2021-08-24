@@ -21,7 +21,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            .loginPage("/services-monitor/user/login")
+            .loginPage("/services-monitor/login")
             .loginProcessingUrl("/authenticate")
             .permitAll()
             .and()
