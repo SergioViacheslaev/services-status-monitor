@@ -6,6 +6,7 @@ import com.servicesmonitor.servicesstatusmonitorservice.repo.MonitoredServiceRep
 import com.servicesmonitor.servicesstatusmonitorservice.service.ServiceMonitoring
 import com.servicesmonitor.servicesstatusmonitorservice.service.StatusUpdate
 import com.servicesmonitor.servicesstatusmonitorservice.service.websocket.WebSocketMessage
+import com.servicesmonitor.servicesstatusmonitorservice.util.MonitoredServiceDtoConverter
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.client.ResourceAccessException
@@ -19,6 +20,7 @@ class ServiceStatusUpdateService(
     val monitoringService: ServiceMonitoring,
     val monitoredServiceRepo: MonitoredServiceRepository,
     val messageService: WebSocketMessage,
+    val dtoConverter: MonitoredServiceDtoConverter,
 ) : StatusUpdate {
     private val logger = LoggerFactory.getLogger(javaClass)
     private val SERVICE_STATUS_INFO_TOPIC = "/topic/servicesStatusInfo"
@@ -47,7 +49,7 @@ class ServiceStatusUpdateService(
             } finally {
                 //Send updated status to front via websocket
                 messageService.sendMessage(
-                    SERVICE_STATUS_INFO_TOPIC, mapper.writeValueAsString(it.toDto())
+                    SERVICE_STATUS_INFO_TOPIC, mapper.writeValueAsString(dtoConverter.toDto(it))
                 )
             }
 
