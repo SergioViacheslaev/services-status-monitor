@@ -13,6 +13,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation ("org.springframework.security:spring-security-test")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-devtools")
@@ -25,7 +26,6 @@ dependencies {
     implementation ("org.webjars:sockjs-client:1.0.2")
     implementation ("org.webjars:stomp-websocket:2.3.3")
     implementation ("org.webjars:bootstrap:3.3.7")
-    implementation ("org.webjars:jquery:3.1.1-1")
 
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

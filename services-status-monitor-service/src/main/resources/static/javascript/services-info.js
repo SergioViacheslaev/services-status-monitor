@@ -9,7 +9,7 @@ function setConnected(connected) {
     }
 }
 
-const connect = () => {
+function connect() {
     const loc = window.location;
     const url = '//' + loc.host + loc.pathname + '/websocket';
 
@@ -22,14 +22,14 @@ const connect = () => {
         stompClient.subscribe('/topic/servicesStatusInfo', serviceStatusInfo =>
             updateServicesInfoTable(JSON.parse(serviceStatusInfo.body)));
     });
-};
+}
 
 const updateServicesInfoTable = (monitoredService) => {
     let serviceStatusDataRow = '';
     serviceStatusDataRow += '<tr>';
     if (monitoredService.shortStatus === "UP") {
         serviceStatusDataRow += '<td>' + greenStatusImg + '</td>';
-    } else if (monitoredService.shortStatus === "DOWN" || monitoredService.shortStatus === "OFFLINE" ) {
+    } else if (monitoredService.shortStatus === "DOWN" || monitoredService.shortStatus === "OFFLINE") {
         serviceStatusDataRow += '<td>' + redStatusImg + '</td>';
     } else {
         serviceStatusDataRow += '<td></td>';
@@ -63,5 +63,7 @@ const updateServicesInfoTable = (monitoredService) => {
 
 };
 
-$(document).ready(connect());
+$(document).ready(function () {
+    connect()
+});
 
