@@ -2,6 +2,7 @@ package com.servicesmonitor.servicesstatusmonitorservice.controller
 
 import com.servicesmonitor.servicesstatusmonitorservice.dto.RegistrationResultDto
 import com.servicesmonitor.servicesstatusmonitorservice.dto.UserDto
+import com.servicesmonitor.servicesstatusmonitorservice.service.UserRegistration
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/services-monitor/user")
-class UserRegistrationController {
+class UserRegistrationController(
+    val userRegistrationService: UserRegistration
+) {
 
     @PostMapping("/registration")
     fun registerUserAccount(@ModelAttribute user: UserDto, model: Model): String {
         println(user)
-        model.addAttribute("user", UserDto())
-        model.addAttribute("registrationResult", RegistrationResultDto("YAHOOO !!!"))
+        val registrationResultMessage = userRegistrationService.register(user)
+        model.addAttribute("user", user)
+        model.addAttribute("registrationResult", RegistrationResultDto(registrationResultMessage))
         return "user-registration-page"
     }
 
