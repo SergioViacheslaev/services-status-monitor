@@ -1,4 +1,3 @@
-let stompClient = null;
 const greenStatusImg = '<img width="100%" height="100%" src="../../img/greenStatus.png"/>'
 const redStatusImg = '<img width="100%" height="100%" src="../../img/redStatus.png"/>'
 
@@ -14,7 +13,7 @@ const connect = () => {
     const loc = window.location;
     const url = '//' + loc.host + loc.pathname + '/websocket';
 
-    stompClient = Stomp.over(new SockJS(url));
+    const stompClient = Stomp.over(new SockJS(url));
     stompClient.connect({}, frame => {
 
         setConnected(true);
@@ -24,7 +23,6 @@ const connect = () => {
             updateServicesInfoTable(JSON.parse(serviceStatusInfo.body)));
     });
 };
-
 
 const updateServicesInfoTable = (monitoredService) => {
     let serviceStatusDataRow = '';
