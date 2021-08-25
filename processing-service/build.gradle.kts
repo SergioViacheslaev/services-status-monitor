@@ -16,6 +16,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

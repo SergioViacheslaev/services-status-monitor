@@ -50,6 +50,16 @@ class WebSecurityConfig(
         web.ignoring()
             .antMatchers(HttpMethod.POST, "/services-monitor/services/register")
             .antMatchers("/services-monitor/user/registration")
+            .antMatchers(
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/v2/api-docs",
+                "/v3/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/webjars/**"
+            );
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
