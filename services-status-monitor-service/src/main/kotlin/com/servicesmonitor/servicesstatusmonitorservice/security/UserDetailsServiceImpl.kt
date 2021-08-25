@@ -1,4 +1,4 @@
-package com.servicesmonitor.servicesstatusmonitorservice.service
+package com.servicesmonitor.servicesstatusmonitorservice.security
 
 import com.servicesmonitor.servicesstatusmonitorservice.repo.UserRepository
 import org.springframework.security.core.GrantedAuthority
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class MyUserDetailsService(
+class UserDetailsServiceImpl(
     val userRepository: UserRepository
 ) : UserDetailsService {
 

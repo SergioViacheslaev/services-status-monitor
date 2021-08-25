@@ -1,4 +1,4 @@
-package com.servicesmonitor.servicesstatusmonitorservice.config
+package com.servicesmonitor.servicesstatusmonitorservice.service.websocket
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry

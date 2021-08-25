@@ -5,6 +5,10 @@ import kotlinx.coroutines.delay
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
+/**
+ * Health check service, imitating statuses check in parallel
+ * Return empty list if everything is OK or list of exceptions
+ */
 @Service
 class HealthCheckService : ServiceHealth {
     private val logger = LoggerFactory.getLogger(javaClass)
