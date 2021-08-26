@@ -21,7 +21,7 @@ class ServiceRegistrationController(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @PostMapping("/services/register")
-    fun handleRegistranionServiceRequest(@RequestBody serviceRegistrationData: ServiceRegistrationData): ResponseEntity<String> {
+    fun handleRegistrationServiceRequest(@RequestBody serviceRegistrationData: ServiceRegistrationData): ResponseEntity<String> {
         logger.info("Received registration request from ${serviceRegistrationData.serviceName}")
         servicesMonitoringService.registerMonitoredService(serviceRegistrationData)
 
