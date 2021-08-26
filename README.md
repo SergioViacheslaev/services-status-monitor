@@ -3,13 +3,13 @@
 The status monitor checks the statuses of the other services and shows them on the status page.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/49530516/130776315-4f944c20-b61f-4ddc-88b4-ea289478b013.jpg" alt="Size Limit CLI" width="738">
+  <img src="https://user-images.githubusercontent.com/49530516/130776315-4f944c20-b61f-4ddc-88b4-ea289478b013.jpg" alt="Status page" width="738">
 </p>
 If service's status changed it will be automatically updated on the page.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/49530516/130794076-98f3889d-694f-4743-8f0a-1830597af27e.jpg
-" alt="Size Limit CLI" width="738">
+  <img src="https://user-images.githubusercontent.com/49530516/130958946-ea04ee2d-a8d9-43c9-a318-54f6da8bc839.jpg
+" alt="Status page" width="738">
 </p>
 
 For now, status info implemented:
@@ -43,11 +43,11 @@ You can see **Swagger** panel of each service for more details.
 4. Open [services status information page](http://localhost:8080/services-monitor/services/status),
    but at first you need to log in.
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/49530516/130956990-3e27ee7e-c732-4025-84ae-f0cbf5f182ad.jpg" alt="Size Limit CLI" width="738">
+  <img src="https://user-images.githubusercontent.com/49530516/130956990-3e27ee7e-c732-4025-84ae-f0cbf5f182ad.jpg" alt="Login page" width="520">
 </p>
 5. Register new user
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/49530516/130957582-a2094acd-2aba-46f9-87da-4326602047d0.jpg" alt="Size Limit CLI" width="738">
+  <img src="https://user-images.githubusercontent.com/49530516/130957582-a2094acd-2aba-46f9-87da-4326602047d0.jpg" alt="User registration" width="480">
 </p>
 6. After successful login, you will see the services status page.
 
