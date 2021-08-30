@@ -21,7 +21,7 @@ class ServicesMonitoringService(
 ) : ServiceMonitoring {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    override fun registerMonitoredService(serviceRegistrationData: ServiceRegistrationData) {
+    override fun registerMonitoredService(serviceRegistrationData: ServiceRegistrationData): MonitoredService {
         val monitoredService = MonitoredService(
             ObjectId.get().toString(),
             serviceRegistrationData.serviceName,
@@ -30,11 +30,13 @@ class ServicesMonitoringService(
         )
         //Check if service already registered
         val existingService = monitoredServiceRepo.findByServiceName(monitoredService.serviceName)
-        if (existingService != null) {
+        return if (existingService != null) {
             logger.info("Service ${monitoredService.serviceName} is already registered.")
+            existingService;
         } else {
-            monitoredServiceRepo.save(monitoredService)
+            val registeredService = monitoredServiceRepo.save(monitoredService)
             logger.info("Service ${monitoredService.serviceName} is registered.")
+            registeredService;
         }
 
     }

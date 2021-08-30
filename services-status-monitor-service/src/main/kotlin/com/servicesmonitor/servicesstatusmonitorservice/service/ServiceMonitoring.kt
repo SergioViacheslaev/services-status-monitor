@@ -6,7 +6,7 @@ import com.servicesmonitor.servicesstatusmonitorservice.model.ServiceStatusData
 
 
 interface ServiceMonitoring {
-    fun registerMonitoredService(serviceRegistrationData: ServiceRegistrationData)
+    fun registerMonitoredService(serviceRegistrationData: ServiceRegistrationData): MonitoredService
     fun findAllMonitoredServices(): List<MonitoredService>
     fun requestServiceStatus(serviceStatusURL: String): ServiceStatusData?
 }
