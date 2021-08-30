@@ -34,3 +34,15 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
+
+tasks.test {
+    useJUnitPlatform()
+
+    testLogging.showStandardStreams = true
+
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+
+
