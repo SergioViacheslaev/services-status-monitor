@@ -11,16 +11,18 @@ import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentMatchers.any
+import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.then
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.web.client.RestTemplate
 
+
 @ExtendWith(MockitoExtension::class)
 internal class ServicesMonitoringServiceTest {
-    val SERVICE_REGISTRATION_DATA = ServiceRegistrationData(
+    val serviceRegistrationData = ServiceRegistrationData(
         "Test-service",
         "http://localhost:8083/test-service/status"
     )
@@ -36,32 +38,43 @@ internal class ServicesMonitoringServiceTest {
 
     @Test
     fun `Registers new monitoring service`() {
+        //GIVEN
         val newMonitoredService = MonitoredService(
             ObjectId.get().toString(),
-            SERVICE_REGISTRATION_DATA.serviceName,
-            SERVICE_REGISTRATION_DATA.serviceStatusURL,
+            serviceRegistrationData.serviceName,
+            serviceRegistrationData.serviceStatusURL,
             ServiceStatusData(ServiceStatus.REGISTERED)
         )
+        given(monitoredServiceRepo.save(any(MonitoredService::class.java))).willReturn(newMonitoredService)
 
-        `when`(monitoredServiceRepo.save(any(MonitoredService::class.java))).thenReturn(newMonitoredService)
+        //WHEN
+        val registeredMonitoredService =
+            servicesMonitoringService.registerMonitoredService(serviceRegistrationData)
 
-        val registeredMonitoredService = servicesMonitoringService.registerMonitoredService(SERVICE_REGISTRATION_DATA)
+        //THEN
+        then(monitoredServiceRepo).should().save(any(MonitoredService::class.java))
         assertThat(newMonitoredService).isEqualTo(registeredMonitoredService)
     }
 
     @Test
     fun `Finds all monitored services`() {
-        val monitoredServices = listOf(
+        //GIVEN
+        val expectedMonitoredServices = listOf(
             MonitoredService(
                 ObjectId.get().toString(),
-                SERVICE_REGISTRATION_DATA.serviceName,
-                SERVICE_REGISTRATION_DATA.serviceStatusURL,
+                serviceRegistrationData.serviceName,
+                serviceRegistrationData.serviceStatusURL,
                 ServiceStatusData(ServiceStatus.REGISTERED)
             )
         )
+        given(monitoredServiceRepo.findAll()).willReturn(expectedMonitoredServices)
 
-        `when`(monitoredServiceRepo.findAll()).thenReturn(monitoredServices)
-        assertThat(monitoredServices).isEqualTo(servicesMonitoringService.findAllMonitoredServices())
+        //WHEN
+        val actualMonitoredServices = servicesMonitoringService.findAllMonitoredServices()
+
+        //THEN
+        then(monitoredServiceRepo).should().findAll()
+        assertThat(expectedMonitoredServices).isEqualTo(actualMonitoredServices)
     }
 
 
