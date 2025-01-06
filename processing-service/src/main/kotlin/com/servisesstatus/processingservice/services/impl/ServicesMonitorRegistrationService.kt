@@ -6,7 +6,12 @@ import com.servisesstatus.processingservice.services.ServiceMonitorRegistration
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
-import org.springframework.http.*
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
@@ -26,7 +31,6 @@ class ServicesMonitorRegistrationService(
     override fun register() {
         val registrationDto = RegistrationRequestDto(properties.serviceName, properties.serviceStatusURL)
 
-        //Building and sending registration request
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
         val requestEntity: HttpEntity<RegistrationRequestDto> =

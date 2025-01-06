@@ -4,7 +4,6 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("kapt")
-
 }
 
 dependencies {
@@ -27,7 +26,6 @@ dependencies {
     implementation("org.webjars:sockjs-client:1.0.2")
     implementation("org.webjars:stomp-websocket:2.3.3")
     implementation("org.webjars:bootstrap:3.3.7")
-
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     kapt("org.springframework.boot:spring-boot-configuration-processor")

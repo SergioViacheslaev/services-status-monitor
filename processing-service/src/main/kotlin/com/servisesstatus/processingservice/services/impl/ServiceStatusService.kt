@@ -4,8 +4,10 @@ import com.servisesstatus.processingservice.dto.ServiceStatusDto
 import com.servisesstatus.processingservice.model.ServiceStatus
 import com.servisesstatus.processingservice.services.ServiceHealth
 import com.servisesstatus.processingservice.services.ServiceStatusData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import kotlin.time.ExperimentalTime
@@ -33,7 +35,11 @@ class ServiceStatusService(
     private fun getCurrentStatus(): ServiceStatus = runBlocking {
         var currentServiceStatus = ServiceStatus.UP
         val checkStatusTime = measureTime {
-            val dbConnectionExceptions = async { healthCheckService.checkDataBaseConnections() }
+            val dbConnectionExceptions = async {
+                withContext(Dispatchers.IO) {
+                healthCheckService.checkDataBaseConnections()
+                }
+            }
             val amazonCloudApiExceptions = async { healthCheckService.checkAmazonCloudAPI() }
             val messaggingQueueExceptions = async { healthCheckService.checkMessagingQueue() }
 

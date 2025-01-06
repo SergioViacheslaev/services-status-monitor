@@ -20,7 +20,6 @@ class UserRegistrationController(
 
     @PostMapping("/registration")
     fun registerUserAccount(@ModelAttribute user: UserDto, model: Model): String {
-        println(user)
         val registrationResultMessage = userRegistrationService.register(user)
         model.addAttribute("user", user)
         model.addAttribute("registrationResult", RegistrationResultDto(registrationResultMessage))

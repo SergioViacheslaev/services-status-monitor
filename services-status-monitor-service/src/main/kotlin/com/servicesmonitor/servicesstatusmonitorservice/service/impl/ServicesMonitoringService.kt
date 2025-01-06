@@ -28,7 +28,6 @@ class ServicesMonitoringService(
             serviceRegistrationData.serviceStatusURL,
             ServiceStatusData(ServiceStatus.REGISTERED)
         )
-        //Check if service already registered
         val existingService = monitoredServiceRepo.findByServiceName(monitoredService.serviceName)
         return if (existingService != null) {
             logger.info("Service ${monitoredService.serviceName} is already registered.")

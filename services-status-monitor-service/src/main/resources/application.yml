@@ -1,12 +1,12 @@
 server:
-  port: 8080
+    port: 8080
 
 spring:
-  devtools:
-    restart:
-      log-condition-evaluation-delta: false
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: services-status-monitor
+    devtools:
+        restart:
+            log-condition-evaluation-delta: false
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: services-status-monitor

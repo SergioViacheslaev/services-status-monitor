@@ -77,5 +77,4 @@ internal class ServicesMonitoringServiceTest {
         assertThat(expectedMonitoredServices).isEqualTo(actualMonitoredServices)
     }
 
-
 }

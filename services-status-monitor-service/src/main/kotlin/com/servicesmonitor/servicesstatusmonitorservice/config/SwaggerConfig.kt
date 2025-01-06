@@ -33,7 +33,7 @@ class SwaggerConfig {
     private fun apiInfo(): ApiInfo {
         return ApiInfoBuilder()
             .title("Services status Monitor")
-            .contact(Contact("Sergei.Viacheslaev", "https://sergioviacheslaev.github.io/",""))
+            .contact(Contact("Sergei.Viacheslaev", "https://sergioviacheslaev.github.io/", ""))
             .build()
     }
 

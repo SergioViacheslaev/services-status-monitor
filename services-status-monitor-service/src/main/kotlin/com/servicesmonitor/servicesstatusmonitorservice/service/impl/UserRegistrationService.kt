@@ -20,11 +20,9 @@ class UserRegistrationService(
 
     override fun register(userDto: UserDto): String {
         val user = userRepository.findByEmail(userDto.email)
-        //if user already registered
         if (user != null) {
             return "${userDto.email} $EMAIL_ALREADY_REGISTERED"
         }
-        //if registration passwords don't match
         if (!isRegistrationPasswordValid(userDto.password, userDto.matchingPassword)) {
             return PASSWORDS_NOT_MATCH
         }

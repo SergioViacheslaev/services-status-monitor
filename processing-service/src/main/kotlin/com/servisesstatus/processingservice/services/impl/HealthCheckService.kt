@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class HealthCheckService : ServiceHealth {
     private val logger = LoggerFactory.getLogger(javaClass)
+
     override suspend fun checkDataBaseConnections(): List<String> {
         delay(500)
         logger.info("DB connections check is completed")

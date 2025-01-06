@@ -4,7 +4,6 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("kapt")
-
 }
 
 dependencies {

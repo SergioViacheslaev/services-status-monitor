@@ -33,7 +33,6 @@ internal class ServiceRegistrationControllerTest {
     @InjectMocks
     lateinit var registrationController: ServiceRegistrationController
 
-
     private lateinit var mockMvc: MockMvc
 
     @BeforeEach
@@ -76,6 +75,5 @@ internal class ServiceRegistrationControllerTest {
         //THEN
         then(servicesMonitoringService).shouldHaveNoInteractions()
     }
-
 
 }
