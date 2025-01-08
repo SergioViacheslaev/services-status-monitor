@@ -1,5 +1,6 @@
-package com.servicesmonitor.servicesstatusmonitorservice.controller
+package com.servicesmonitor.servicesstatusmonitorservice.exception
 
+import com.servicesmonitor.servicesstatusmonitorservice.controller.ServiceRegistrationController
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.converter.HttpMessageNotReadableException

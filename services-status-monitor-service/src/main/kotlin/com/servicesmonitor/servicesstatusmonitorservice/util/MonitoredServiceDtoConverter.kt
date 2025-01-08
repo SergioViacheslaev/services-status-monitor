@@ -3,9 +3,10 @@ package com.servicesmonitor.servicesstatusmonitorservice.util
 import com.servicesmonitor.servicesstatusmonitorservice.dto.MonitoredServiceDto
 import com.servicesmonitor.servicesstatusmonitorservice.model.MonitoredService
 import com.servicesmonitor.servicesstatusmonitorservice.model.ServiceStatusData
-import org.springframework.stereotype.Service
+import org.apache.logging.log4j.util.Strings.EMPTY
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class MonitoredServiceDtoConverter {
 
     fun toDto(service: MonitoredService) = MonitoredServiceDto(
@@ -14,7 +15,6 @@ class MonitoredServiceDtoConverter {
         service.serviceStatusData.serviceStatus.name,
         getFullStatus(service.serviceStatusData)
     )
-
 
     private fun getUsedMemoryPercentage(serviceStatusData: ServiceStatusData): String {
         val jvmTotalMemory = serviceStatusData.jvmTotalMemory
@@ -27,6 +27,7 @@ class MonitoredServiceDtoConverter {
             true -> serviceStatusData.exceptionMessages
                 .reduce { statusMessage, exceptionMessage -> statusMessage + exceptionMessage }
                 .toString()
-            else -> ""
+
+            else -> EMPTY
         }
 }

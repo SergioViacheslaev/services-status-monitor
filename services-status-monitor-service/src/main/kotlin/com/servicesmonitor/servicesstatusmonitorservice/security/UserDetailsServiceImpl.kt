@@ -7,11 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-
 
 @Service
-@Transactional
 class UserDetailsServiceImpl(
     val userRepository: UserRepository
 ) : UserDetailsService {
@@ -20,14 +17,10 @@ class UserDetailsServiceImpl(
     override fun loadUserByUsername(email: String): UserDetails {
         val user = userRepository.findByEmail(email)
             ?: throw UsernameNotFoundException("No user found with email: $email")
-        val enabled = true
-        val accountNonExpired = true
-        val credentialsNonExpired = true
-        val accountNonLocked = true
 
         return org.springframework.security.core.userdetails.User(
-            user.email, user.password, enabled, accountNonExpired,
-            credentialsNonExpired, accountNonLocked, getAuthorities(user.roles)
+            user.email, user.password, true, true,
+            true, true, getAuthorities(user.roles)
         )
     }
 
